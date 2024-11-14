@@ -5,6 +5,8 @@ const app = express();
 
 app.use(express.json());
 app.use(cors());
+app.use(express.static('dist'));
+
 
 morgan.token('body', (req) => {
   if (req.method === 'POST' || req.method === 'PUT') {
@@ -24,12 +26,13 @@ let persons = [
   { id: 4, name: 'Mary Poppendieck', number: '39-23-6423122' },
 ];
 
-const requestLogger = (request,response,next) => {
-  console.log('method:',request.method);
-  console.log('Path:',request.Path);
-  console.log('Body:',request.Body);
+const requestLogger=(request, response, next) =>{
+  console.log('Method', request.method);
+  console.log('Path', request.path);
+  console.log('Body', request.body);
   console.log('---');
-};
+  next()
+}
 
 app.use(requestLogger);
 
